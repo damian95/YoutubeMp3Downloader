@@ -1,0 +1,63 @@
+﻿@model List<YoutubeMp3Downloader.Models.YoutubeVid>
+@using YoutubeMp3Downloader.Models;
+
+@{
+    ViewBag.Title = "NewIndex";
+}
+<h3>@ViewBag.Messagex</h3>
+<center><h4 a>Youtube MP3 Downloader</h4></center>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <table align="center">
+            <tr>
+                <td>
+                    <div>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model[0].url, new { htmlAttributes = new { @class = "form-control", @style = "width:250px" } })
+                            @Html.ValidationMessageFor(model => model[0].url, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Search" class="btn btn-default" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<div class="container">
+    @if (Model.Count > 1)
+    {
+        List<YoutubeVid> vids = new List<YoutubeVid>();
+        foreach (var model in Model)
+        {
+            vids.Add(model);
+            if (vids.Count == 3 || (Model.IndexOf(model) + 1 == Model.Count))
+            {
+                @Html.Partial("_YoutubeVidPartial", vids);
+                vids.Clear();
+            }
+        }
+    }
+</div>
+<br />
+
+<a class="btn btn-danger" id="dwnLdBtn" href="" style="visibility:hidden">Download</a>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/Scripts/SignalR.js"></script>
+}
