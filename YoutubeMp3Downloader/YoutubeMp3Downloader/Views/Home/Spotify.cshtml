@@ -1,0 +1,25 @@
+﻿@model List<YoutubeMp3Downloader.Models.SpotifyPlayList>
+
+@{
+    ViewBag.Title = "Spotify";
+}
+
+<h2>Spotify</h2>
+<div>
+    @foreach (var item in Model)
+    {
+        <input type="button" class="playlistBtn" data-userid="@item.userId" data-token="@item.token" data-playlistid="@item.playListId" value="@item.name"/>
+    }
+</div>
+
+<div id="jsonstuff" style="overflow-y:auto; height: 200px;" ></div>
+<div class="container" id="vidList"></div>
+<a class="btn btn-danger" id="dwnLdBtn" href="" style="visibility:hidden">Download</a>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/Scripts/SpotifySongsSignalR.js"></script>
+}
+

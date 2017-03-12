@@ -187,7 +187,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\SpotifySongsHub.cs" />
     <Compile Include="Models\MyHub.cs" />
+    <Compile Include="Models\SpotifyPlayList.cs" />
+    <Compile Include="Models\SpotifyToken.cs" />
+    <Compile Include="Models\SpotifyTrack.cs" />
     <Compile Include="Models\YoutubeVid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -227,6 +231,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\SignalR.js" />
+    <Content Include="Scripts\SpotifySongsSignalR.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -244,6 +249,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_YoutubeVidPartial.cshtml" />
     <Content Include="Views\Home\DownloadError.cshtml" />
+    <Content Include="Views\Home\Spotify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

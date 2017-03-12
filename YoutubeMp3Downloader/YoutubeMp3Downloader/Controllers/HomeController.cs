@@ -12,6 +12,8 @@ using YoutubeMp3Downloader.Models;
 using Frapper;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace YoutubeMp3Downloader.Controllers
 {
@@ -92,6 +94,60 @@ namespace YoutubeMp3Downloader.Controllers
             {
                 return RedirectToAction("DownloadError", e);
             }            
+        }
+
+        public async Task<ActionResult> Spotify()
+        {
+            //get code value from url
+            var code = Request.Url.Query.Remove(0, 6);
+
+            using (var client = new HttpClient())
+            {
+                //body of HttpPost to get roken for user
+                var values = new Dictionary<string, string>
+                {
+                    {"grant_type", "authorization_code"},
+                    {"code", code},
+                    {"redirect_uri", "http://localhost:2177/Home/Spotify"},
+                    {"client_id", "bf9be64550ab43a3a45cbdc762780c05"},
+                    {"client_secret", "3999dba5632c4ac7af025b7cbb574805"}
+                };
+
+                //get the token of the user trying to sign in
+                var content = new FormUrlEncodedContent(values); 
+                var response = await client.PostAsync("https://accounts.spotify.com/api/token", content);
+                var responseToken = await response.Content.ReadAsStringAsync();
+                SpotifyToken token = JsonConvert.DeserializeObject<SpotifyToken>(responseToken);
+
+                //get users playlists
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.access_token);
+                var responsePlaylist = await client.GetAsync("https://api.spotify.com/v1/me/playlists");
+                JObject jsonPlaylist = (JObject)JsonConvert.DeserializeObject(responsePlaylist.Content.ReadAsStringAsync().Result);
+
+                //get users spotify id
+                var responseUser = await client.GetAsync("https://api.spotify.com/v1/me");
+                JObject jsonUser = (JObject)JsonConvert.DeserializeObject(responseUser.Content.ReadAsStringAsync().Result);
+
+                List<SpotifyPlayList> playlists = new List<SpotifyPlayList>();
+
+                for (int i = 0; i < jsonPlaylist["items"].Count(); i++)
+                {
+                    SpotifyPlayList sp = new SpotifyPlayList()
+                    {
+                        playListId = jsonPlaylist["items"][i]["id"].ToString(),
+                        userId = Convert.ToInt64(jsonUser["id"]),
+                        name = jsonPlaylist["items"][i]["name"].ToString(),
+                        token = token.access_token
+                    };
+
+                    playlists.Add(sp);
+                }
+                //return View((object)sp["items"][0]["name"].ToString());
+
+                return View(playlists);
+
+            }
+
         }
 
         //web crawl and grab search result page info
