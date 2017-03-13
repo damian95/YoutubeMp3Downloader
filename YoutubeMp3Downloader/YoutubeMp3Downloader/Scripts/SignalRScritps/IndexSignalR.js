@@ -9,12 +9,12 @@ function x(imgID, link) {
     $.connection.hub
         .start()
         .done(function () {
-            $.connection.myHub.server.announce(link);
+            $.connection.youtubeVidHub.server.convertVideo(link);
         })
         .fail();
 }
 
-$.connection.myHub.client.announce = function (song) {
+$.connection.youtubeVidHub.client.getMP3 = function (song) {
     var subbtn = document.getElementById("dwnLdBtn");
     subbtn.href = "/Home/Downlaod/" + song;
     subbtn.click();

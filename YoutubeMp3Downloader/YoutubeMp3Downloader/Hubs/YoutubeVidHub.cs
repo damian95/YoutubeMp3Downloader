@@ -11,10 +11,10 @@ using Frapper;
 
 namespace YoutubeMp3Downloader.Models
 {
-    public class MyHub : Hub
+    public class YoutubeVidHub : Hub
     {
 
-        public void announce(string link)
+        public void convertVideo(string link)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace YoutubeMp3Downloader.Models
 
                 vidTitle = RemoveAllChar('.', vidTitle);
 
-                Clients.Caller.announce(vidTitle);
+                Clients.Caller.getMP3(vidTitle);
                 }
             catch (Exception e)
             {

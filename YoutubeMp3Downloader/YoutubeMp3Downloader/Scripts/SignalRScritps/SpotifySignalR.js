@@ -39,7 +39,7 @@
 
         //disable download buttons
         $('.btn').attr("disabled", "disabled");
-        $.connection.myHub.server.announce(vidUrl);
+        $.connection.youtubeVidHub.server.convertVideo(vidUrl);
     });
 
     //load the playlists songs into a table to be displayed
@@ -81,7 +81,7 @@
     };
 
     //start return the video that was converted 
-    $.connection.myHub.client.announce = function (song) {
+    $.connection.youtubeVidHub.client.getMP3 = function (song) {
         var subbtn = document.getElementById("dwnLdBtn");
         subbtn.href = "/Home/Downlaod/" + song;
         subbtn.click();
@@ -91,12 +91,8 @@
         $('.btn').removeAttr("disabled");
     };
 
-    $.connection.spotifySongsHub.client.msg = function (msg) {
-        alert(msg);
-    }
-
-    $.connection.hub.error(function (error) {
-        console.log('SignalR error: ' + error)
-    });
+    //$.connection.hub.error(function (error) {
+    //    console.log('SignalR error: ' + error)
+    //});
 });
 

@@ -9,10 +9,10 @@ namespace YoutubeMp3Downloader
     {
         public void Configuration(IAppBuilder app)
         {
-            var hubConfiguration = new HubConfiguration();
-            hubConfiguration.EnableDetailedErrors = true;
-            app.MapSignalR(hubConfiguration);
-            //app.MapSignalR();
+            //var hubConfiguration = new HubConfiguration();
+            //hubConfiguration.EnableDetailedErrors = true;
+            //app.MapSignalR(hubConfiguration);
+            app.MapSignalR();
         }
     }
 }

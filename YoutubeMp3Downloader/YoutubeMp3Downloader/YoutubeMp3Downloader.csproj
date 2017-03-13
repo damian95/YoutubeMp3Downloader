@@ -188,7 +188,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\SpotifySongsHub.cs" />
-    <Compile Include="Models\MyHub.cs" />
+    <Compile Include="Hubs\YoutubeVidHub.cs" />
     <Compile Include="Models\SpotifyPlayList.cs" />
     <Compile Include="Models\SpotifyToken.cs" />
     <Compile Include="Models\SpotifyTrack.cs" />
@@ -230,8 +230,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\SignalR.js" />
-    <Content Include="Scripts\SpotifySongsSignalR.js" />
+    <Content Include="Scripts\SignalRScritps\IndexSignalR.js" />
+    <Content Include="Scripts\SignalRScritps\SpotifySignalR.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
